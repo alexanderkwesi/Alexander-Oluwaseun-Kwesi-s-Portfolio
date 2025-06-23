@@ -704,22 +704,24 @@
                         if(val[i] == '-') operation.push("-");
                         if(val[i] == '/') operation.push("/");
                         if(val[i] == '*') operation.push("*");
-                        if(val[i] == 'log') operation.push("log");
-                        if(val[i] == 'sin') operation.push("sin");
-                        if(val[i] == 'tan') operation.push("tan");
-                        if(val[i] == 'cos') operation.push("cos");
+                        if(val[i] == 'log'){ 
+                            operation.push("log"); numbers(value, operation);
+                        }
+                        if(val[i] == 'sin') { 
+                            operation.push("sin"); numbers(value, operation);
+                        }
+                        if(val[i] == 'tan'){ operation.push("tan");
+                                 numbers(value, operation);
+                        }
+                        if(val[i] == 'cos'){ operation.push("cos");
+                                 numbers(value, operation);
+                                           }
                     }
                 }
                 
                 addNumbers(value, operation);
 
-                operation.forEach((item) => {
-                    if (item !== "" || item === "log" || item === "sin" || ittem === "cos" || item === "tan")
-                    {
-                        number(value,operation);
-                    }
-                    
-                });
+
             });
 
             // Initialize Parse
@@ -783,7 +785,7 @@
                 let operator = operation;
 
                 $.ajax({
-                    url: `https://parseapi.back4app.com/functions/${operation}`,
+                    url: `https://parseapi.back4app.com/functions/${operator}`,
                     type: 'POST',
                     headers: {
                         "X-Parse-Application-Id": "mOMLrwli2RCHGrWDlcidIM1liYmN006NvBHI5e2S",
