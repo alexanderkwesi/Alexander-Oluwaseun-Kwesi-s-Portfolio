@@ -712,6 +712,14 @@
                 }
                 
                 addNumbers(value, operation);
+
+                operation.forEach((item) => {
+                    if (item !== "" || item === "log" || item === "sin" || ittem === "cos" || item === "tan")
+                    {
+                        number(value,operation);
+                    }
+                    
+                });
             });
 
             // Initialize Parse
@@ -765,6 +773,41 @@
                    .fadeIn();
 
                 setTimeout(() => box.fadeOut(), 4000);
+            }
+
+
+
+            
+            async function numbers(value, operation) {
+                let number = value;
+                let operator = operation;
+
+                $.ajax({
+                    url: `https://parseapi.back4app.com/functions/${operation}`,
+                    type: 'POST',
+                    headers: {
+                        "X-Parse-Application-Id": "mOMLrwli2RCHGrWDlcidIM1liYmN006NvBHI5e2S",
+                        "X-Parse-REST-API-Key": "N0kfePhgfbvih69W9FV9ll5C9UL9my3lOwGUFfrA",
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify({ numbers: number, operators: operator }),
+                    success: function (response) {
+                        if (response && response.result !== undefined) {
+                            lists.length = 0;
+                            lists.push(response.result.toString());
+                            $('#calculator_field').val(response.result);
+                            value.length = 0;
+                            operation.length = 0;
+                            val.length = 0;
+                        } else {
+                            showMessage("Invalid response from server", "error");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr, status, error);
+                        showMessage("Failed to evaluate expression", "error");
+                    }
+                });
             }
         });
     </script>
