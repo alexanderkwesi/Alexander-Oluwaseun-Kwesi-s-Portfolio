@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alexander Oluwaseun Kwesi | Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #11111a;
+    --bg3: #1a1a28;
+    --accent: #6c63ff;
+    --accent2: #ff6584;
+    --gold: #f0c040;
+    --text: #e8e8f0;
+    --muted: #7070a0;
+    --card: #14141f;
+    --border: #2a2a40;
+    --radius: 16px;
+    --nav-h: 72px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; line-height: 1.15; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background .3s;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.6rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: .9rem;
+    font-family: 'Syne', sans-serif; font-weight: 600; letter-spacing: .5px;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .hamburger span { width: 24px; height: 2px; background: var(--text); display: block; transition: all .3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+    background: var(--bg2); padding: 1.5rem; z-index: 998;
+    flex-direction: column; gap: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { color: var(--text); text-decoration: none; font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.1rem; }
+
+  /* HERO */
+  #home {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: var(--nav-h) 5vw 0;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(108,99,255,.18) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,101,132,.12) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: .04;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 780px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.3);
+    border-radius: 100px; padding: .4rem 1rem; margin-bottom: 1.5rem;
+    font-size: .8rem; font-family: 'Syne', sans-serif; color: var(--accent); letter-spacing: 1px;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.5)} }
+  .hero-content h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 800;
+    letter-spacing: -2px; line-height: 1.05; margin-bottom: 1rem;
+  }
+  .hero-content h1 .highlight {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem; color: var(--muted); margin-bottom: .8rem;
+    font-family: 'Syne', sans-serif; font-weight: 600; letter-spacing: 1px;
+  }
+  .hero-desc { color: var(--muted); max-width: 520px; margin-bottom: 2.5rem; font-size: 1rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #8b83ff);
+    color: #fff; padding: .9rem 2rem; border-radius: 100px;
+    text-decoration: none; font-family: 'Syne', sans-serif; font-weight: 700;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 30px rgba(108,99,255,.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(108,99,255,.5); }
+  .btn-outline {
+    border: 1px solid var(--border); color: var(--text); padding: .9rem 2rem;
+    border-radius: 100px; text-decoration: none;
+    font-family: 'Syne', sans-serif; font-weight: 700; transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-avatar {
+    position: absolute; right: 5vw; top: 50%; transform: translateY(-50%);
+    width: clamp(200px,30vw,380px); height: clamp(200px,30vw,380px);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: clamp(3rem,8vw,7rem);
+    font-weight: 800; color: rgba(255,255,255,.9);
+    animation: morph 10s ease-in-out infinite; box-shadow: 0 30px 80px rgba(108,99,255,.3);
+    z-index: 1;
+  }
+  @keyframes morph {
+    0%,100%{border-radius:40% 60% 70% 30% / 40% 50% 60% 50%}
+    25%{border-radius:60% 40% 30% 70% / 60% 30% 70% 40%}
+    50%{border-radius:30% 60% 70% 40% / 50% 60% 30% 60%}
+    75%{border-radius:50% 40% 60% 30% / 40% 70% 50% 60%}
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 5vw; }
+  .section-label {
+    font-size: .75rem; letter-spacing: 3px; color: var(--accent);
+    font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: .75rem; text-transform: uppercase;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--muted); max-width: 540px; margin-bottom: 3.5rem; }
+  .divider { width: 60px; height: 3px; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 2px; margin: 1rem 0 1.5rem; }
+
+  /* STATS */
+  .stats { display: flex; gap: 3rem; margin: 2.5rem 0; flex-wrap: wrap; }
+  .stat-item { text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-label { font-size: .8rem; color: var(--muted); letter-spacing: 1px; font-family: 'Syne', sans-serif; text-transform: uppercase; }
+
+  /* ABOUT */
+  #about { background: var(--bg2); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .about-img-wrap {
+    position: relative; border-radius: 24px; overflow: hidden;
+    background: linear-gradient(135deg, var(--bg3), var(--card));
+    padding: 3rem; text-align: center;
+    border: 1px solid var(--border);
+  }
+  .about-avatar-lg {
+    width: 200px; height: 200px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800;
+    color: rgba(255,255,255,.9); margin-bottom: 1.5rem;
+  }
+  .about-img-wrap h3 { font-size: 1.4rem; margin-bottom: .3rem; }
+  .about-img-wrap p { color: var(--muted); font-size: .9rem; }
+
+  /* SUPERPOWERS */
+  .powers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .power-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.75rem; transition: border-color .2s, transform .2s;
+    position: relative; overflow: hidden;
+  }
+  .power-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0; transition: opacity .2s;
+  }
+  .power-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .power-card:hover::before { opacity: 1; }
+  .power-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .power-card h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+  .power-card p { color: var(--muted); font-size: .9rem; }
+
+  /* PROJECTS */
+  #projects { background: var(--bg); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.75rem; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; transition: transform .25s, border-color .25s, box-shadow .25s;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 20px 50px rgba(108,99,255,.2); }
+  .proj-thumb {
+    height: 200px; display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem; position: relative; overflow: hidden;
+  }
+  .proj-thumb::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(10,10,15,.8) 100%);
+  }
+  .proj-body { padding: 1.5rem; }
+  .proj-tag {
+    display: inline-block; font-size: .7rem; font-family: 'Syne', sans-serif; font-weight: 700;
+    letter-spacing: 1px; color: var(--accent); background: rgba(108,99,255,.12);
+    border-radius: 100px; padding: .2rem .75rem; margin-bottom: .75rem;
+  }
+  .proj-body h3 { font-size: 1.2rem; margin-bottom: .5rem; }
+  .proj-body p { color: var(--muted); font-size: .88rem; margin-bottom: 1.25rem; }
+  .proj-link {
+    display: inline-flex; align-items: center; gap: .4rem;
+    color: var(--accent); font-size: .85rem; font-family: 'Syne', sans-serif; font-weight: 700;
+    text-decoration: none; transition: gap .2s;
+  }
+  .proj-link:hover { gap: .7rem; }
+  .proj-link::after { content: '→'; }
+  .proj-studio { color: var(--muted); font-size: .75rem; margin-top: .5rem; }
+
+  /* CALCULATOR */
+  #calculator { background: var(--bg2); }
+  .calc-wrap { max-width: 400px; }
+  .calc-box {
+    background: var(--card); border: 1px solid var(--border); border-radius: 24px;
+    overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,.4);
+  }
+  .calc-display {
+    background: #0d0d18; padding: 1.5rem;
+    text-align: right; border-bottom: 1px solid var(--border);
+  }
+  .calc-expr { color: var(--muted); font-size: .85rem; min-height: 1.2rem; font-family: 'DM Sans', sans-serif; }
+  .calc-result {
+    font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 700;
+    color: var(--text); min-height: 3.5rem; word-break: break-all;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .calc-btns { display: grid; grid-template-columns: repeat(4,1fr); }
+  .cb {
+    padding: 1.2rem .5rem; font-size: 1rem; background: transparent; color: var(--text);
+    border: 1px solid var(--border); cursor: pointer; font-family: 'Syne', sans-serif; font-weight: 700;
+    transition: background .15s, color .15s; user-select: none;
+  }
+  .cb:hover { background: var(--bg3); }
+  .cb.op { color: var(--accent); }
+  .cb.fn { color: var(--gold); font-size: .85rem; }
+  .cb.eq { background: linear-gradient(135deg, var(--accent), #8b83ff); color: #fff; }
+  .cb.eq:hover { opacity: .9; }
+  .cb.clr { color: var(--accent2); }
+  .cb.zero { grid-column: span 2; }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+  .skills-wrap { display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 1rem; }
+  .skill-item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+  .skill-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem; margin-bottom: .6rem; }
+  .skill-bar { background: var(--border); border-radius: 4px; height: 5px; }
+  .skill-fill { height: 5px; border-radius: 4px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+  /* SERVICES */
+  #services { background: var(--bg2); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap: 1.5rem; }
+  .svc-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 2.5rem; position: relative; transition: border-color .2s, transform .2s;
+  }
+  .svc-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .svc-card.popular { border-color: var(--accent); }
+  .popular-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg,var(--accent),var(--accent2));
+    color: #fff; font-size: .7rem; font-family: 'Syne', sans-serif; font-weight: 700;
+    letter-spacing: 1px; padding: .3rem 1.2rem; border-radius: 100px;
+  }
+  .svc-card h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+  .svc-card ul { list-style: none; margin-bottom: 1.5rem; }
+  .svc-card li { color: var(--muted); padding: .4rem 0; font-size: .9rem; border-bottom: 1px solid var(--border); }
+  .svc-card li::before { content: '✓ '; color: var(--accent); }
+  .svc-price { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--text); }
+  .svc-price span { font-size: 1rem; color: var(--muted); }
+
+  /* CONTACT */
+  #contact { background: var(--bg); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; }
+  .contact-info h3 { font-size: 1.2rem; margin-bottom: 1.5rem; }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem;
+    padding: 1.2rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  }
+  .contact-icon { font-size: 1.3rem; }
+  .contact-detail a { color: var(--muted); text-decoration: none; font-size: .9rem; }
+  .contact-detail a:hover { color: var(--accent); }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: .4rem; }
+  .form-group label { font-size: .8rem; color: var(--muted); font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: .5px; }
+  .form-group input, .form-group textarea {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: .9rem 1.1rem; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: .95rem;
+    transition: border-color .2s; outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea { min-height: 120px; resize: vertical; }
+  .form-success {
+    display: none; background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.3);
+    border-radius: 10px; padding: 1rem; color: var(--accent); font-family: 'Syne', sans-serif;
+    font-weight: 600; text-align: center;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2); border-top: 1px solid var(--border);
+    padding: 3rem 5vw; display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-nav { display: flex; gap: 1.5rem; list-style: none; }
+  .footer-nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  .footer-nav a:hover { color: var(--accent); }
+  .footer-copy { color: var(--muted); font-size: .85rem; }
+
+  /* SCROLL TOP */
+  #scrollTop {
+    position: fixed; bottom: 2rem; right: 2rem; width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none; border-radius: 50%; color: #fff; font-size: 1.2rem; cursor: pointer;
+    opacity: 0; transform: translateY(20px); transition: opacity .3s, transform .3s;
+    z-index: 900; box-shadow: 0 8px 24px rgba(108,99,255,.4);
+  }
+  #scrollTop.show { opacity: 1; transform: translateY(0); }
+
+  @media(max-width:900px){
+    .hero-avatar { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media(max-width:600px){
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="logo">AOK</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMobile()">Home</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span>Available for Projects</div>
+    <h1>Hi, I'm <span class="highlight">Alexander<br>Oluwaseun Kwesi</span></h1>
+    <p class="hero-subtitle">Full Stack Developer · Software Engineer · Spatial Expert</p>
+    <p class="hero-desc">Creating cutting-edge solutions with 6+ years of experience in web and software development. Turning complex ideas into beautiful, functional products.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Contact Me</a>
+      <a href="#projects" class="btn-outline">View Work</a>
+    </div>
+  </div>
+  <div class="hero-avatar">AOK</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <div class="about-avatar-lg">AOK</div>
+      <h3>Alexander Oluwaseun Kwesi</h3>
+      <p>Full Stack Developer &amp; Spatial Expert</p>
+      <div class="stats">
+        <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label">Years Exp.</div></div>
+        <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Projects</div></div>
+        <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Clients</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-title">Profile</div>
+      <div class="divider"></div>
+      <p style="color:var(--muted);margin-bottom:1.2rem;">Passionate about creating cutting-edge solutions, I bring a robust six-year track record as a Full Stack Developer with expertise in both front-end and back-end technologies.</p>
+      <p style="color:var(--muted);margin-bottom:2rem;">Specializing in TypeScript, JavaScript, Python, C++, and C#, I have honed my skills in crafting responsive web applications and robust software solutions that enhance user experience and drive business objectives.</p>
+
+      <div class="section-label" style="margin-top:2rem;">My Superpowers</div>
+      <div class="section-title" style="font-size:1.8rem;margin-bottom:1.5rem;">What I Bring to the Table</div>
+      <div class="powers-grid">
+        <div class="power-card"><div class="power-icon">⚡</div><h3>Super-Speed</h3><p>Complete tasks quicker, meet tight deadlines, and handle multiple projects simultaneously with efficiency and precision.</p></div>
+        <div class="power-card"><div class="power-icon">🧠</div><h3>Enhanced Problem Solving</h3><p>Quickly analyze complex problems and identify effective solutions with an innate ability to break down challenges.</p></div>
+        <div class="power-card"><div class="power-icon">🚀</div><h3>Instant Learning</h3><p>Acquire and master new programming languages, frameworks, or technologies instantly to stay ahead of the curve.</p></div>
+        <div class="power-card"><div class="power-icon">🔍</div><h3>Exceptional Debugging</h3><p>Eliminate issues quickly with sharp debugging skills, resulting in more stable and reliable software.</p></div>
+        <div class="power-card"><div class="power-icon">💡</div><h3>Unlimited Creativity</h3><p>Think outside the box and come up with innovative solutions to complex problems that enhance my work.</p></div>
+        <div class="power-card"><div class="power-icon">🏆</div><h3>Leadership</h3><p>Excel in team settings, translating complex technical details into understandable terms for all stakeholders.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Portfolio</div>
+  <div class="section-title">My Projects</div>
+  <div class="divider"></div>
+  <p class="section-sub">A curated selection of work spanning web applications, platforms, and digital experiences.</p>
+
+  <div class="projects-grid">
+
+    <!-- uppound -->
+    <div class="project-card">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#1a3a5c,#0e2340);">
+        <span style="z-index:1;font-size:2.5rem;">💷</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-tag">E-COMMERCE · FINTECH</span>
+        <h3>Uppound</h3>
+        <p>A dynamic UK-based marketplace platform delivering a seamless buying and selling experience with integrated payment systems and intuitive product management.</p>
+        <a href="https://uppound.co.uk" target="_blank" class="proj-link">Visit Site</a>
+        <p class="proj-studio">by KIKO STUDIO's</p>
+      </div>
+    </div>
+
+    <!-- maison -->
+    <div class="project-card">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#1c1209,#2e1f0a);">
+        <span style="z-index:1;font-size:2.5rem;">✦</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-tag">LUXURY · FASHION · E-COMMERCE</span>
+        <h3>Maison</h3>
+        <p>A luxury fashion e-commerce platform featuring a curated selection of high-end apparel, full cart/checkout flow, user authentication, and an elegant editorial design for Spring/Summer 2026.</p>
+        <a href="https://maison.me.uk" target="_blank" class="proj-link">Visit Site</a>
+        <p class="proj-studio">by KIKO STUDIO's</p>
+      </div>
+    </div>
+
+    <!-- UVC Legal -->
+    <div class="project-card">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#0f2a1a,#1a4028);">
+        <span style="z-index:1;font-size:2.5rem;">⚖️</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-tag">LEGAL · WEB</span>
+        <h3>UVC Legal Website</h3>
+        <p>Professional website for a legal firm with responsive design and client portal integration.</p>
+        <a href="https://www.uvclegal.uk" target="_blank" class="proj-link">Visit Site</a>
+        <p class="proj-studio">by KIKO STUDIO's</p>
+      </div>
+    </div>
+
+    <!-- Predictive -->
+    <div class="project-card">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#1a1035,#2d1a60);">
+        <span style="z-index:1;font-size:2.5rem;">📊</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-tag">DATA · ML</span>
+        <h3>Predictive Analytics Platform</h3>
+        <p>Educational project demonstrating predictive modelling capabilities with visual dashboards.</p>
+        <span class="proj-link" style="cursor:default">View Details</span>
+        <p class="proj-studio">by KIKO STUDIO's</p>
+      </div>
+    </div>
+
+    <!-- Spatial -->
+    <div class="project-card">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#0a2a2a,#143838);">
+        <span style="z-index:1;font-size:2.5rem;">🌍</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-tag">GIS · SPATIAL</span>
+        <h3>Geospatial Analysis Tool</h3>
+        <p>Interactive platform for spatial data visualisation and analysis using modern mapping APIs.</p>
+        <span class="proj-link" style="cursor:default">View Details</span>
+        <p class="proj-studio">by KIKO STUDIO's</p>
+      </div>
+    </div>
+
+    <!-- UVC Personnel -->
+    <div class="project-card">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#2a1020,#401535);">
+        <span style="z-index:1;font-size:2.5rem;">👥</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-tag">HR · SaaS</span>
+        <h3>HR Management System</h3>
+        <p>Comprehensive personnel management solution for businesses with leave tracking and payroll.</p>
+        <a href="https://www.uvcpersonnel.net" target="_blank" class="proj-link">Visit Site</a>
+        <p class="proj-studio">by KIKO STUDIO's</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="section-label">API Feature</div>
+  <div class="section-title">JavaScript Calculator</div>
+  <div class="divider"></div>
+  <p class="section-sub">Power up with the fully-functional JavaScript Calculator API — supporting all operations including trigonometry and logarithms.</p>
+  <div class="calc-wrap">
+    <div class="calc-box">
+      <div class="calc-display">
+        <div class="calc-expr" id="calcExpr"></div>
+        <div class="calc-result" id="calcResult">0</div>
+      </div>
+      <div class="calc-btns">
+        <button class="cb clr" onclick="calcAC()">AC</button>
+        <button class="cb clr" onclick="calcToggleSign()">+/−</button>
+        <button class="cb clr" onclick="calcPercent()">%</button>
+        <button class="cb op" onclick="calcOp('÷')">÷</button>
+
+        <button class="cb" onclick="calcNum('7')">7</button>
+        <button class="cb" onclick="calcNum('8')">8</button>
+        <button class="cb" onclick="calcNum('9')">9</button>
+        <button class="cb op" onclick="calcOp('×')">×</button>
+
+        <button class="cb" onclick="calcNum('4')">4</button>
+        <button class="cb" onclick="calcNum('5')">5</button>
+        <button class="cb" onclick="calcNum('6')">6</button>
+        <button class="cb op" onclick="calcOp('−')">−</button>
+
+        <button class="cb" onclick="calcNum('1')">1</button>
+        <button class="cb" onclick="calcNum('2')">2</button>
+        <button class="cb" onclick="calcNum('3')">3</button>
+        <button class="cb op" onclick="calcOp('+')">+</button>
+
+        <button class="cb fn" onclick="calcFn('log')">log</button>
+        <button class="cb zero" onclick="calcNum('0')">0</button>
+        <button class="cb" onclick="calcDot()">.</button>
+        <button class="cb eq" onclick="calcEquals()">=</button>
+
+        <button class="cb fn" onclick="calcFn('sin')">sin</button>
+        <button class="cb fn" onclick="calcFn('cos')">cos</button>
+        <button class="cb fn" onclick="calcFn('tan')">tan</button>
+        <button class="cb fn" onclick="calcBackspace()">⌫</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Tech Stack</div>
+  <div class="section-title">My Skills</div>
+  <div class="divider"></div>
+  <div class="skills-wrap">
+    <div class="skill-item"><div class="skill-name">TypeScript</div><div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div></div>
+    <div class="skill-item"><div class="skill-name">JavaScript</div><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></div>
+    <div class="skill-item"><div class="skill-name">Python</div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+    <div class="skill-item"><div class="skill-name">C++ / C#</div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+    <div class="skill-item"><div class="skill-name">React / Next.js</div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+    <div class="skill-item"><div class="skill-name">Node.js</div><div class="skill-bar"><div class="skill-fill" style="width:87%"></div></div></div>
+    <div class="skill-item"><div class="skill-name">PostgreSQL</div><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+    <div class="skill-item"><div class="skill-name">GIS / Spatial</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+    <div class="skill-item"><div class="skill-name">Docker / DevOps</div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+    <div class="skill-item"><div class="skill-name">AWS / Cloud</div><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">Pricing</div>
+  <div class="section-title">My Services</div>
+  <div class="divider"></div>
+  <div class="services-grid">
+    <div class="svc-card">
+      <h3>Web Development</h3>
+      <ul>
+        <li>Front End Development</li>
+        <li>Responsive Design</li>
+        <li>User Experience Design</li>
+        <li>Website Maintenance</li>
+      </ul>
+      <div class="svc-price">£3,000<span>/project</span></div>
+    </div>
+    <div class="svc-card popular">
+      <div class="popular-badge">POPULAR</div>
+      <h3>Full Stack Development</h3>
+      <ul>
+        <li>Front End Development</li>
+        <li>Back End Development</li>
+        <li>API Development</li>
+        <li>Database Design</li>
+      </ul>
+      <div class="svc-price">£5,000<span>/project</span></div>
+    </div>
+    <div class="svc-card">
+      <h3>Software Development</h3>
+      <ul>
+        <li>Custom Software Solutions</li>
+        <li>Application Architecture</li>
+        <li>Performance Optimization</li>
+        <li>Ongoing Support</li>
+      </ul>
+      <div class="svc-price">£9,000<span>/project</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <div class="section-title">Contact Me</div>
+  <div class="divider"></div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Contact Information</h3>
+      <p style="color:var(--muted);margin-bottom:1.5rem;">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
+      <div class="contact-detail">
+        <span class="contact-icon">✉️</span>
+        <div>
+          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.25rem;font-family:'Syne',sans-serif;font-weight:700;">EMAIL</div>
+          <a href="mailto:seankwesi24@googlemail.com">seankwesi24@googlemail.com</a><br>
+          <a href="mailto:alexander.o.kwesi@gmail.com">alexander.o.kwesi@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">📞</span>
+        <div>
+          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.25rem;font-family:'Syne',sans-serif;font-weight:700;">PHONE</div>
+          <span style="color:var(--muted);">Available upon request</span>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">📍</span>
+        <div>
+          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.25rem;font-family:'Syne',sans-serif;font-weight:700;">LOCATION</div>
+          <span style="color:var(--muted);">United Kingdom</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>NAME</label>
+            <input type="text" id="fName" placeholder="Your name"/>
+          </div>
+          <div class="form-group">
+            <label>EMAIL</label>
+            <input type="email" id="fEmail" placeholder="Your email"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>SUBJECT</label>
+          <input type="text" id="fSubject" placeholder="Subject"/>
+        </div>
+        <div class="form-group">
+          <label>MESSAGE</label>
+          <textarea id="fMsg" placeholder="Your message..."></textarea>
+        </div>
+        <div class="form-success" id="formSuccess">✓ Message sent! I'll get back to you soon.</div>
+        <button class="btn-primary" style="border:none;cursor:pointer;width:fit-content;" onclick="submitForm()">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="logo" style="margin-bottom:.5rem;">AOK</div>
+    <p style="color:var(--muted);font-size:.85rem;">Full Stack Developer &amp; Spatial Expert</p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Alexander Kwesi. All rights reserved.</p>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ========== NAV ==========
+document.getElementById('hamburger').addEventListener('click',function(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+function closeMobile(){ document.getElementById('mobileMenu').classList.remove('open'); }
+
+// ========== SCROLL TOP ==========
+window.addEventListener('scroll',function(){
+  document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 400);
+});
+
+// ========== CONTACT FORM ==========
+function submitForm(){
+  var n=document.getElementById('fName').value.trim();
+  var e=document.getElementById('fEmail').value.trim();
+  var s=document.getElementById('fSubject').value.trim();
+  var m=document.getElementById('fMsg').value.trim();
+  if(!n||!e||!s||!m){ alert('Please fill in all fields.'); return; }
+  document.getElementById('formSuccess').style.display='block';
+  document.getElementById('fName').value='';
+  document.getElementById('fEmail').value='';
+  document.getElementById('fSubject').value='';
+  document.getElementById('fMsg').value='';
+  setTimeout(function(){ document.getElementById('formSuccess').style.display='none'; }, 4000);
+}
+
+// ========== CALCULATOR ==========
+var calcState = {
+  current: '0',
+  previous: '',
+  operator: null,
+  justCalc: false,
+  expr: ''
+};
+
+function updateDisplay(){
+  var r = document.getElementById('calcResult');
+  var e = document.getElementById('calcExpr');
+  r.textContent = calcState.current;
+  e.textContent = calcState.expr;
+}
+
+function calcNum(n){
+  if(calcState.justCalc){ calcState.current='0'; calcState.expr=''; calcState.justCalc=false; }
+  if(calcState.current === '0' && n !== '.'){
+    calcState.current = n;
+  } else {
+    if(calcState.current.length < 15) calcState.current += n;
+  }
+  updateDisplay();
+}
+
+function calcDot(){
+  if(calcState.justCalc){ calcState.current='0'; calcState.justCalc=false; }
+  if(calcState.current.indexOf('.') === -1){
+    calcState.current += '.';
+    updateDisplay();
+  }
+}
+
+function calcOp(op){
+  if(calcState.operator && !calcState.justCalc){
+    calcEquals(true);
+  }
+  calcState.previous = calcState.current;
+  calcState.operator = op;
+  calcState.expr = calcState.previous + ' ' + op;
+  calcState.justCalc = false;
+  calcState.current = '0';
+  updateDisplay();
+}
+
+function calcEquals(silent){
+  if(!calcState.operator || !calcState.previous) return;
+  var a = parseFloat(calcState.previous);
+  var b = parseFloat(calcState.current);
+  var result;
+  switch(calcState.operator){
+    case '+': result = a + b; break;
+    case '−': result = a - b; break;
+    case '×': result = a * b; break;
+    case '÷': result = b === 0 ? 'Error' : a / b; break;
+    default: result = b;
+  }
+  if(!silent){
+    calcState.expr = calcState.previous + ' ' + calcState.operator + ' ' + calcState.current + ' =';
+  }
+  calcState.current = (result === 'Error') ? 'Error' : formatNum(result);
+  calcState.operator = null;
+  calcState.previous = '';
+  calcState.justCalc = true;
+  updateDisplay();
+}
+
+function formatNum(n){
+  if(isNaN(n) || !isFinite(n)) return 'Error';
+  var s = parseFloat(n.toPrecision(10)).toString();
+  return s;
+}
+
+function calcAC(){
+  calcState = { current:'0', previous:'', operator:null, justCalc:false, expr:'' };
+  updateDisplay();
+}
+
+function calcToggleSign(){
+  if(calcState.current !== '0' && calcState.current !== 'Error'){
+    calcState.current = calcState.current.startsWith('-')
+      ? calcState.current.slice(1)
+      : '-' + calcState.current;
+    updateDisplay();
+  }
+}
+
+function calcPercent(){
+  if(calcState.current !== 'Error'){
+    calcState.current = formatNum(parseFloat(calcState.current) / 100);
+    updateDisplay();
+  }
+}
+
+function calcFn(fn){
+  if(calcState.current === 'Error') return;
+  var v = parseFloat(calcState.current);
+  var result;
+  switch(fn){
+    case 'sin': result = Math.sin(v * Math.PI / 180); calcState.expr = 'sin(' + v + ')'; break;
+    case 'cos': result = Math.cos(v * Math.PI / 180); calcState.expr = 'cos(' + v + ')'; break;
+    case 'tan':
+      if(Math.abs(Math.cos(v * Math.PI / 180)) < 1e-10){ result = NaN; }
+      else { result = Math.tan(v * Math.PI / 180); }
+      calcState.expr = 'tan(' + v + ')';
+      break;
+    case 'log':
+      result = v <= 0 ? NaN : Math.log10(v);
+      calcState.expr = 'log(' + v + ')';
+      break;
+  }
+  calcState.current = isNaN(result) ? 'Error' : formatNum(result);
+  calcState.justCalc = true;
+  calcState.operator = null;
+  calcState.previous = '';
+  updateDisplay();
+}
+
+function calcBackspace(){
+  if(calcState.justCalc || calcState.current === 'Error'){ calcAC(); return; }
+  if(calcState.current.length > 1){
+    calcState.current = calcState.current.slice(0,-1);
+  } else {
+    calcState.current = '0';
+  }
+  updateDisplay();
+}
+
+// Keyboard support
+document.addEventListener('keydown', function(e){
+  if('0123456789'.includes(e.key)) calcNum(e.key);
+  else if(e.key === '.') calcDot();
+  else if(e.key === '+') calcOp('+');
+  else if(e.key === '-') calcOp('−');
+  else if(e.key === '*') calcOp('×');
+  else if(e.key === '/') { e.preventDefault(); calcOp('÷'); }
+  else if(e.key === 'Enter' || e.key === '=') calcEquals();
+  else if(e.key === 'Backspace') calcBackspace();
+  else if(e.key === 'Escape') calcAC();
+  else if(e.key === '%') calcPercent();
+});
+</script>
+</body>
+</html>
