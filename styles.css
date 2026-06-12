@@ -832,6 +832,10 @@ h4 {
   background: linear-gradient(135deg, #3d3236, var(--rose));
 }
 
+.previous-card.ebooks .previous-mark {
+  background: linear-gradient(135deg, #28433d, #8a6f2a);
+}
+
 .previous-card.analytics .previous-mark {
   background: linear-gradient(135deg, #202d38, var(--blue));
 }
