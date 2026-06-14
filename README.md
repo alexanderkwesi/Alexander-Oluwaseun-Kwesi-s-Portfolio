@@ -1,6 +1,6 @@
 # Alexander Oluwaseun Kwesi Portfolio
 
-Static GitHub Pages-ready portfolio built around curated case studies from the `alexanderkwesi` GitHub repositories.
+Static GitHub Pages-ready portfolio built around curated case studies from the `alexanderkwesi` GitHub repositories and business application portfolio projects.
 
 ## Files
 
@@ -10,6 +10,7 @@ Static GitHub Pages-ready portfolio built around curated case studies from the `
 
 ## Featured Case Studies
 
+- SafetyHub Incident Reporting App
 - Crypto Web API Scraper UI and Data Visualisation
 - CSIRO Biomass App
 - DocRevisor
@@ -18,6 +19,17 @@ Static GitHub Pages-ready portfolio built around curated case studies from the `
 - Checkmate MVP
 - CleanPro
 - Dino Dashboard
+
+## SafetyHub Highlight
+
+SafetyHub is included as a business systems case study for full stack Python roles. It demonstrates:
+
+- FastAPI backend development
+- SQLAlchemy data access with SQLite and PostgreSQL support
+- JWT login/authentication
+- Docker and Docker Compose setup
+- GitHub Actions test workflow
+- Dashboard metrics, incident records, corrective actions and CSV export
 
 ## Previous Featured Builds Included
 
@@ -38,4 +50,5 @@ Then commit and push to GitHub. No build step is required.
 
 - Confirm each repository link is public.
 - Add live demo links beside the repository links where deployments exist.
+- Confirm the SafetyHub repository link is added once the project is pushed publicly.
 - Replace any inferred project wording with exact stack details once each repo README is final.
